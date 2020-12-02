@@ -1,7 +1,9 @@
 import os
 import sys
 import math
+import random
 import itertools
+import numpy as np
 
 
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -30,6 +32,19 @@ def solution2(lines):
     return 0
 
 
+def solution3(lines):
+    nums = list(map(int, lines))
+    return hacksolution(nums, 3)
+
+
+def hacksolution(nums, n):
+    while True:
+        r = random.sample(nums, n)
+        if sum(r) == 2020:
+            return np.prod(r)
+    return -1
+
+
 def read_input():
     with open(f"{CURRENT_DIR}/input.txt", "r") as fread:
         lines = fread.read().splitlines()
@@ -38,5 +53,5 @@ def read_input():
 
 if __name__ == "__main__":
     lines = read_input()
-    ans = solution2(lines)
+    ans = solution3(lines)
     print(f"answer: {ans}")
