@@ -9,7 +9,7 @@ import numpy as np
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
-find_trees = lambda s, right, down: [s[row][(right * (step + 1)) % len(s[0])] for step, row in enumerate(range(down, len(s), down))].count("#")
+find_trees = lambda s, right, down: [s[row][right * (step + 1) % len(s[0])] for step, row in enumerate(range(down, len(s), down))].count("#")
 
 
 def solution(lines):
