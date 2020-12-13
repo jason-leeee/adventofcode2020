@@ -28,16 +28,8 @@ def solution(lines):
     return ans
 
 
-bus_dict = {}
-
-def get_num(buses, base, step):
-    global bus_dict
-
-    ids = buses
-    offsets = [bus_dict[bus] for bus in buses]
-    entries = list(zip(ids, offsets))
-    print(f"entries:{entries}")
-
+def find_new_base_step(entries, base, step):
+    # update the timestamp that satifies the given buses
     new_base = base
     for x in range(base, 100000000000000000, step):
         bvalid = True
@@ -49,6 +41,7 @@ def get_num(buses, base, step):
             new_base = x
             break
     
+    # update the step between two timestamps that satify the given buses
     new_step = step
     for x in range(new_base + step, 100000000000000000, step):
         bvalid = True
@@ -64,23 +57,25 @@ def get_num(buses, base, step):
 
 
 def solution2(lines):
-    global bus_dict
-
     bus_list = [int(busid) for busid in lines[1].split(",") if busid != "x"]
     bus_dict = {int(busid): i for i, busid in enumerate(lines[1].split(",")) if busid != "x"}
-    print(bus_list)
-    print(bus_dict)
+    print(f"bus_list: {bus_list}")
+    print(f"bus_dict: {bus_dict}")
 
     base = 1
     step = 1
+    # incremental search
     for i in range(2, len(bus_list) + 1):
-        #buses = random.sample(bus_list, i)
+        print(f"num of buses: {i}")
+
         buses = bus_list[:i]
-        
-        new_base, new_step = get_num(buses, base, step)
-        print(f"iteration {i}")
+        offsets = [bus_dict[bus] for bus in buses]
+        entries = list(zip(buses, offsets))
+        print(f"\tentries: {entries}")
+
+        new_base, new_step = find_new_base_step(entries, base, step)
         print(f"\tbuses: {buses}")
-        print(f"\tnew_base={new_base}\n\tnew_step={new_step}")
+        print(f"\tnew_base: {new_base}\n\tnew_step: {new_step}")
 
         base = new_base
         step = new_step
@@ -88,6 +83,7 @@ def solution2(lines):
     return base
 
 
+# deprecated, ~= brute force, too slow
 def solution2_pulp(lines):
     busids = {int(busid): i for i, busid in enumerate(lines[1].split(",")) if busid != "x"}
     print(busids)
