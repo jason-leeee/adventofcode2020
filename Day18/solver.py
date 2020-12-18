@@ -69,14 +69,6 @@ def eval_exp(exp):
     return s
 
 
-def eval_exp_string(expstr):
-    print(f"expstr: {expstr}")
-    oprs, _ = exp_construct(expstr, 0)
-    print(f"oprs: {oprs}")
-
-    return eval_exp(oprs)
-
-
 def solution(lines):
     ans = 0
     for i, expstr in enumerate(lines):
