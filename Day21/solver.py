@@ -37,8 +37,6 @@ def resolve_input(lines):
 
 
 def get_impossible_ingredients(ingredients, allergens, rules, possible_contains):
-
-
     impossible_ings = {}
     for ing in ingredients:
         contain_any = False
@@ -131,11 +129,11 @@ def solution2(nums):
     # only 8 ingredients and 8 allergens are left, so brute-force
     results = []
     search_match(
-        depth=0, 
-        assigns=np.array([-1] * len(ingredients), dtype=np.int8), 
-        ings=ingredients, 
-        alles=allergens, 
-        rules=rules, 
+        depth=0,
+        assigns=np.array([-1] * len(ingredients), dtype=np.int8),
+        ings=ingredients,
+        alles=allergens,
+        rules=rules,
         results=results
     )
     assert len(results) == 1
